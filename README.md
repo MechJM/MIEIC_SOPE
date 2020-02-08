@@ -1,2 +1,2 @@
-# MIEIC- SOPE
+# MIEIC - SOPE
 
