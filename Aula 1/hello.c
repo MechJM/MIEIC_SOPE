@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 /*
 //Exs.2-3
@@ -19,12 +20,15 @@ int main(int argc, char* argv[])
 {
 
 	char nome[MAX_NAME_LEN];
-	printf("Indique o seu nome:\n");
-	fgets(nome,MAX_NAME_LEN,stdin);
 
-	while(getchar() != '\n');
 
-	printf("Hello %s !",nome);
+	for	(int i=1;i<argc;i++)
+	{
+		sprintf(nome+strlen(nome),"%s",argv[i]);
+		sprintf(nome+strlen(nome)," ");
+	}
+
+	printf("Hello %s !\n",nome);
 
 	return 0;
 }
