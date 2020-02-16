@@ -13,7 +13,8 @@ int main(void)
 }
 */
 
-//Ex.4
+/*
+//Ex.4 - carateres aleatorios entre hello e o nome
 
 #define MAX_NAME_LEN 50
 
@@ -39,4 +40,14 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
+*/
 
+int main(int argc, char* argv[],char* envp[])
+{
+	//need a good way to calculate number of elements in envp
+
+	for (int i=0;i<100;i++)
+	{
+		printf("%s\n",envp[i]);
+	}
+}
