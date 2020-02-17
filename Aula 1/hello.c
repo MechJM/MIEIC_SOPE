@@ -21,7 +21,7 @@ int main(void)
 int main(int argc, char* argv[])
 {
 
-	char nome[MAX_NAME_LEN];
+	char nome[MAX_NAME_LEN] = "";
 
 	int n=atoi(argv[1]);
 
@@ -63,6 +63,7 @@ int main(int argc, char* argv[],char* envp[])
 	return 0;
 }
 */
+
 
 //Ex.5 c) e d) - e suposto escaparmos os espaços?
 int main(int argc, char* argv[],char* envp[])
