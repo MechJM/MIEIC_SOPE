@@ -20,6 +20,7 @@ int main(int argc,char **argv)
         srand(time(NULL));
         rand_num=rand()%num1;
         printf("%d:%d\n",i,rand_num);
+        sleep(1);
     }
 
     printf("Sai do loop\n");
