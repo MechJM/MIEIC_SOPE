@@ -13,7 +13,7 @@ int main(void)
 }
 */
 
- 
+/*
 //Ex.4 - carateres aleatorios entre hello e o nome
 
 #define MAX_NAME_LEN 50
@@ -40,6 +40,49 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
+*/
 
+/*
+//Ex.5 b)
 
+int main(int argc, char* argv[],char* envp[])
+{
+	char word_user[5]="USER=";
+
+	for (char **it=envp;*it!=0;it++)
+	{
+		char *current=*it;
+		if (strncmp(word_user,current,5)==0) 
+		{
+			char username[50];
+			strncpy(username,current+5,50);
+			printf("Hello %s !\n",username);
+		}	
+	}
+
+	return 0;
+}
+*/
+
+//Ex.5 c) e d) - e suposto escaparmos os espaços?
+int main(int argc, char* argv[],char* envp[])
+{
+	char username[50];
+
+	//c)
+	//char word_user[4]="USER";
+
+	//d)
+	char word_user_name[9]="USER_NAME";
+
+	//c)
+	//strcpy(username,getenv(word_user));
+
+	//d)
+	strcpy(username,getenv(word_user_name));
+
+	printf("Hello %s !\n",username);
+
+	return 0;
+}
 
