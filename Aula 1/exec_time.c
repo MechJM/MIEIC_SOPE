@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <unistd.h>
+#include <time.h>
 #include <sys/times.h>
 
 
 int main(int argc,char *argv[])
 {
-    int num1,num2,rand_num,i=1;
     struct tms sys_time;
     clock_t start,end;
-
+    
     start=times(&sys_time);
+    long int ticks_sec = sysconf(_SC_CLK_TCK);
+
+    int num1,num2,rand_num,i=1;
 
     num1=atoi(argv[1]);
     num2=atoi(argv[2]);
@@ -28,7 +30,7 @@ int main(int argc,char *argv[])
         sleep(1);
     }
 
-    long int ticks_sec = sysconf(_SC_CLK_TCK);
+    
     end=times(&sys_time);
 
     printf("Tempo real: %ld segundos\n",(end-start)/ticks_sec);
