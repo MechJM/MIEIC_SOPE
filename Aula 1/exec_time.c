@@ -8,6 +8,10 @@
 int main(int argc,char *argv[])
 {
     int num1,num2,rand_num,i=1;
+    struct tms sys_time;
+    clock_t start,end;
+
+    start=times(&sys_time);
 
     num1=atoi(argv[1]);
     num2=atoi(argv[2]);
@@ -24,17 +28,12 @@ int main(int argc,char *argv[])
         sleep(1);
     }
 
+    long int ticks_sec = sysconf(_SC_CLK_TCK);
+    end=times(&sys_time);
 
-    time_t raw_time = time(0);
-    struct tm *current_time=localtime(&raw_time);
-
-    int ticks_sec = sysconf(_SC_CLK_TCK);
-    struct tms *sys_time;
-    times(sys_time);
-
-    printf("Tempo real: %d:%d\n",current_time->tm_hour,current_time->tm_min);
-    printf("Tempo CPU(user): %ld segundos\n",sys_time->tms_utime/ticks_sec);
-    printf("Tempo CPU(system): %ld segundos\n",sys_time->tms_stime/ticks_sec);
+    printf("Tempo real: %ld segundos\n",(end-start)/ticks_sec);
+    printf("Tempo CPU(user): %f segundos\n",(double)sys_time.tms_utime/ticks_sec);
+    printf("Tempo CPU(system): %f segundos\n",(double)sys_time.tms_stime/ticks_sec);
 
     return 0;
 }
