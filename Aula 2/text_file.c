@@ -1,22 +1,26 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <stdio.h>
 
 #define MAX_STRLEN 50
 #define MAX_STUD 20
 
+
+
 int main(int argc,char* argv[])
 {
-    char students[MAX_STUD][MAX_STRLEN],ch,answer[3];
-    int i=0,i2=0,flag=1;
+    char students[MAX_STUD][MAX_STRLEN],ch,answer[3]="";
+    int i=0,flag=1;
 
-    write(STDOUT_FILENO,"Indique o nome e classificacao do aluno:\n",41);
-    
     while(flag)
-    {
-        while(read(STDIN_FILENO,&ch,1) && ch != '\n')
+    {   
+        write(STDOUT_FILENO,"Indique o nome e classificacao do aluno:\n",41);
+        for (int i2=0;i2<MAX_STRLEN;i2++)
         {
-            students[i][i2++]=ch;
+            if (ch == '\n') break;
+            if (read(STDIN_FILENO,&ch,1) != 1) break;
+            students[i][i2]=ch;
         }
         write(STDOUT_FILENO,"Pretende indicar mais estudantes?(sim/nao)\n",43);
         read(STDIN_FILENO,&answer,3);
@@ -24,7 +28,7 @@ int main(int argc,char* argv[])
         i++;
     }
 
-    int file = open("students.txt",O_WRONLY|O_CREAT|O_EXCL,0644);
+    int file = open("students.txt",O_WRONLY|O_TRUNC);
 
     for (int i3 = 0; i3 < i; i3++)
     {
@@ -35,3 +39,4 @@ int main(int argc,char* argv[])
     
     return 0;
 }
+
