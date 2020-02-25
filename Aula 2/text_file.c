@@ -23,9 +23,9 @@ int main(int argc,char* argv[])
             if (ch == '\n') break;
             students[i][i2]=ch;
         }
-        students[i][i2]=0;
+        students[i][i2]=0; //muito importante para a string terminar corretamente!!
         write(STDOUT_FILENO,"Pretende indicar mais estudantes?(sim/nao)\n",43);
-        read(STDIN_FILENO,&answer,4);
+        read(STDIN_FILENO,&answer,4); //nao esquecer o \n!!
         if (strcmp(answer,"sim\n")!=0) flag=0;
         i++;
     }
