@@ -23,18 +23,17 @@ int main(void)
             printf("I'm process %d. My parent is %d. I'm going to work for 1 second ...\n",getpid(),getppid());
             sleep(1); //simulando o trabalho do filho
             printf("I'm process %d. My parent is %d. I finished my work\n",getpid(),getppid());
-            exit(0);
+            //exit(0);
         }
         else
         {
-            j=1;
-            while (j<=10)
+            for (int j = 1; j <= 10; j++)
             {
                 sleep(1);
-                printf("father working ...\n");
+                printf("father working ... \n");
                 waitpid(-1,&status,WNOHANG);
-                j++;
             }
+            
         }
     }
     
