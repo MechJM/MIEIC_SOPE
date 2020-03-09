@@ -23,11 +23,11 @@ int main(int argc, char *argv[],char *envp[])
     {
         if (argc == 3)
         {
-            int file = open(argv[2],O_CREAT|O_WRONLY|O_EXCL);
+            int file = open(argv[2],O_CREAT|O_WRONLY, 0600);
             dup2(file,STDOUT_FILENO);
         }
 
-        execlp("ls","ls","-lsR",argv[1],NULL);
+        execlp("ls","ls","-laR",argv[1],NULL);
         printf("Command not executed! \n");
         exit(1);
     }

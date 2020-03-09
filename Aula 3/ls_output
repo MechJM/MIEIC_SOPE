@@ -1,0 +1,5 @@
+test_dir:
+total 8
+drwxrwxr-x 2 jmech jmech 4096 mar  9 16:13 .
+drwxrwxr-x 3 jmech jmech 4096 mar  9 16:34 ..
+-rw-rw-r-- 1 jmech jmech    0 mar  9 16:13 test_file
