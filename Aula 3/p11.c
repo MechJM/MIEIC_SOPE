@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 
 #define MAXLEN 256
 #define ARGNO 10
@@ -16,7 +17,6 @@ int main(void)
         char args[ARGNO][MAXLEN];
         char ch;
         write(STDOUT_FILENO,"minish >",strlen("minish >"));
-        int i,i2 = 0,count = 0;
 
         int currentArg = 0;
         int currentArgLen = 0;
@@ -35,45 +35,37 @@ int main(void)
         args[currentArg][currentArgLen] = '\0';
         currentArg++;
 
-         char * execArgs[currentArg+1]; 
+        char * execArgs[currentArg+1]; 
 
+        int redirect = 0;
 
-        for (i=0;i<currentArg;i++)
+        for (int i=0;i<currentArg;i++)
         {
-            //printf("%s\n",args[i]);
-            execArgs[i] = args[i];
-
+            if (strcmp(args[i],"-o") == 0 && strcmp(args[i+1],"") != 0)
+            {
+                redirect = 1;
+                break;
+            }
+            else execArgs[i] = args[i];
         }
-        //args[currentArg] = NULL;
-        execArgs[currentArg] = NULL;
+        
+        if (!redirect) execArgs[currentArg] = NULL;
+        else execArgs[currentArg-2] = NULL;
 
         if (strcmp(execArgs[0],"quit") == 0) return 0;
        
         pid_t pid = fork();
-        if (pid == 0) execvp(args[0],execArgs);
-        int status;
-        wait(&status);
-
-        /*
-        for (i = 0; i < MAXLEN; i++)
+        if (pid == 0) 
         {
-            if (read(STDIN_FILENO,&ch,1) != 1) break;
-            if (ch == ' ' || ch == '\n')
+            if (redirect)
             {
-                input[i] = 0;
-                if (strcmp(input,"quit") == 0) return 0;
-                i = -1;
-                strcpy(args[i2],input);
-                i2++;
-                strcpy(input,"");
-                if (ch == '\n') break;
+                int file = open(args[currentArg-1],O_CREAT|O_WRONLY,0600);
+                dup2(file,STDOUT_FILENO);
             }
-            else input[i] = ch;
+
+            execvp(args[0],execArgs);
         }
-        args[i2] = NULL;
-        pid_t pid = fork();
-        if (pid == 0) execvp(args[0],args);
         int status;
         wait(&status);
-    }*/}
+    }
 }
