@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 
         read(filedes,content,MAXLEN);
 
-        write(fd[WRITE],content,sizeof(content));
+        write(fd[WRITE],content,strlen(content));
 
         close(fd[WRITE]);
     }
