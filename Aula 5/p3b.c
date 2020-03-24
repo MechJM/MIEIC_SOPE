@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
     {
         close(fd[WRITE]);
         dup2(fd[READ],STDIN_FILENO);
-        execvp("sort",&argv[1]);
+        execvp("sort",&argv[1]); //I forgot to copy arg0 but it somehow works
     }
     else if (pid > 0)
     {
