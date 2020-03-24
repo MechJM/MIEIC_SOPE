@@ -22,6 +22,7 @@ int main(int argc,char* argv[])
     }
     else if (pid == 0)
     {
+        close(fd[WRITE]);
         int fd2[2];
         if (pipe(fd2) < 0) fprintf(stderr,"Couldn't create pipe.\n");
 
@@ -29,8 +30,7 @@ int main(int argc,char* argv[])
         pid2 = fork();
 
         if (pid2 > 0)
-        {
-            close(fd[WRITE]);
+        {   
             close(fd2[READ]);
             dup2(fd[READ],STDIN_FILENO);
             dup2(fd2[WRITE],STDOUT_FILENO);
@@ -42,8 +42,7 @@ int main(int argc,char* argv[])
             dup2(fd2[READ],STDIN_FILENO);
             execlp("sort","sort",NULL);
         }
-        else fprintf(stderr,"Couldn't create pipe.\n");
-        
+        else fprintf(stderr,"Couldn't create child process.\n"); 
     }
     else fprintf(stderr,"Couldn't create child process.\n");
 
