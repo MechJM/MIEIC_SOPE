@@ -3,10 +3,24 @@
 #include <sys/types.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <signal.h>
+
+void sigint_handler(int signo)
+{
+    unlink("/tmp/fifo_req");
+    unlink("/tmp/fifo_ans");
+}
 
 int main(void)
 {
     int num1,num2;
+
+    struct sigaction action;
+    action.sa_handler = sigint_handler;
+    sigemptyset(&action.sa_mask);
+    action.sa_flags = 0;
+
+    sigaction(SIGINT,&action,NULL);
 
     if (mkfifo("/tmp/fifo_req",0600) < 0) fprintf(stderr,"Couldn't create FIFO.\n");
     if (mkfifo("/tmp/fifo_ans",0600) < 0) fprintf(stderr,"Couldn't create FIFO.\n");
@@ -30,7 +44,7 @@ int main(void)
 
     } while (num1 != 0 || num2 != 0);
 
-    unlink("fifo_req");
-    unlink("fifo_ans");
+    unlink("/tmp/fifo_req");
+    unlink("/tmp/fifo_ans");
     return 0;    
 }

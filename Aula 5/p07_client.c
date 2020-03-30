@@ -9,8 +9,8 @@ int main(void)
     while (1)
     {
         int num1,num2;
-        printf("Indique dois numeros:\n");
-        scanf("%d %d\n",&num1,&num2);
+        printf("Indique dois numeros: ");
+        scanf("%d %d",&num1,&num2);
 
         FILE* reqPtr = fopen("/tmp/fifo_req","w");
         if (reqPtr == NULL) break;
@@ -27,7 +27,7 @@ int main(void)
         printf("Diferenca: %d\n",diff);
         printf("Produto: %d\n",prod);
         if (div == -1) printf("A divisao nao e valida.\n");
-        else printf("Razao: %f",div);
+        else printf("Razao: %f\n",div);
     }
     return 0;
 }
