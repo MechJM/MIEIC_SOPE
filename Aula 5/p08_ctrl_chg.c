@@ -25,6 +25,8 @@ int main(void)
 
     int message_counter = 0;
 
+    char last_message[100] = "";
+
     do
     {
         char message[100];
@@ -33,8 +35,12 @@ int main(void)
         fscanf(fifoPtr,"%s",message);
         fclose(fifoPtr);
 
-        printf("CHEGOU %s\n",message);
-        message_counter++;
+        if (strcmp(message,last_message) != 0)
+        {
+            printf("CHEGOU %s\n",message);
+            message_counter++;
+            strcpy(last_message,message);
+        } 
     }
     while (!flag);
 
