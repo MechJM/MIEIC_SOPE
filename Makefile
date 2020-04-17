@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -pedantic -pthread
+CFLAGS=-Wall -Wextra -Werror -pedantic -pthread -lrt
 TARGETS = $(pathsubst %.c,%,$(wildcard *.c))
 
 define make_target
