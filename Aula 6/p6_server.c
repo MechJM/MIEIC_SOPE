@@ -44,8 +44,10 @@ void * threadProd(void* arg)
 void * threadDiv(void* arg)
 {
     struct nums strnum = *(struct nums *)arg;
-    int ratio = strnum.num1 / strnum.num2;
-    int * ratioPtr = malloc(sizeof(int));
+    float ratio;
+    if (strnum.num2 == 0) ratio = -1;
+    else ratio = (float) strnum.num1 / strnum.num2;
+    float * ratioPtr = malloc(sizeof(float));
     *ratioPtr = ratio;
     return ratioPtr;
 }
@@ -64,6 +66,8 @@ int main()
         fclose(reqPtr);
 
         struct nums args;
+        args.num1 = num1;
+        args.num2 = num2;
 
         pthread_t tids[4];
         pthread_create(&tids[0],NULL,threadSum,&args);
@@ -82,10 +86,12 @@ int main()
         pthread_join(tids[3],&div);
 
         FILE* ansPtr = fopen(ansName,"w");
-        fprintf(ansPtr,"%d %d %d %d",*(int*)sum,*(int*)diff,*(int*)prod,*(int*)div);
+        fprintf(ansPtr,"%d %d %d %f",*(int*)sum,*(int*)diff,*(int*)prod,*(float*)div);
         fclose(ansPtr);
 
     } while (num1 != 0 || num2 != 0);
+
+    unlink("/tmp/fifo_req");
         
     return 0;
 }
