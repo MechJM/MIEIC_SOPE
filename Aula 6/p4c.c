@@ -8,7 +8,6 @@
 void * threadFunc(void * arg)
 {
     sleep(1);
-    fprintf(stderr,"TID: %ld\n",pthread_self());
     int * orderPtr = malloc(sizeof(int));
     *orderPtr = *(int*)arg;
     return orderPtr;
@@ -23,11 +22,15 @@ int main(void)
     {
         order[i] = i+1;
         pthread_create(&tid[i],NULL,threadFunc,&order[i]);
-
-        pthread_join(tid[i],&returnValue);
-        printf("Return value: %d\n",*(int*)returnValue);
-        free(returnValue);
-        
     }
+
+    for (int i=0; i<N; i++)
+    {
+        pthread_join(tid[i],&returnValue);
+        printf("Return value from thread %ld: %d\n",tid[i],*(int*)returnValue);
+        free(returnValue);
+    }
+
+
     pthread_exit(0);
 }
