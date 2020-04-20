@@ -7,8 +7,8 @@
 
 void * threadSum(void* arg)
 {
-    int (*nums)[2] = (int (*)[2])arg;
-    int sum = (*nums[0]) + (*nums[1]);
+    int* nums = (int *) arg;
+    int sum = (nums[0]) + (nums[1]);
     int * sumPtr = malloc(sizeof(int));
     *sumPtr = sum;
     return sumPtr;
@@ -16,8 +16,8 @@ void * threadSum(void* arg)
 
 void * threadDiff(void* arg)
 {
-    int (*nums)[2] = (int (*)[2])arg;
-    int diff = (*nums[0]) + (*nums[1]);
+    int* nums = (int *) arg;
+    int diff = (nums[0]) - (nums[1]);
     int * diffPtr = malloc(sizeof(int));
     *diffPtr = diff;
     return diffPtr;
@@ -25,8 +25,8 @@ void * threadDiff(void* arg)
 
 void * threadProd(void* arg)
 {
-    int (*nums)[2] = (int (*)[2])arg;
-    int prod = (*nums[0]) + (*nums[1]);
+    int* nums = (int *) arg;
+    int prod = (nums[0]) * (nums[1]);
     int * prodPtr = malloc(sizeof(int));
     *prodPtr = prod;
     return prodPtr;
@@ -34,8 +34,8 @@ void * threadProd(void* arg)
 
 void * threadDiv(void* arg)
 {
-    int (*nums)[2] = (int (*)[2])arg;
-    int ratio = (*nums[0]) + (*nums[1]);
+    int* nums = (int *) arg;
+    int ratio = (nums[0]) / (nums[1]);
     int * ratioPtr = malloc(sizeof(int));
     *ratioPtr = ratio;
     return ratioPtr;

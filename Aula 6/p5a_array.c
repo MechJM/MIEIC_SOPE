@@ -7,29 +7,29 @@
 
 void * threadSum(void* arg)
 {
-    int (*nums)[2] = (int (*)[2])arg;
-    printf("Sum: %d\n",(*nums[0]) + (*nums[1]));
+    int * nums = (int *) arg;
+    printf("Sum: %d\n",(nums[0]) + (nums[1]));
     return NULL;
 }
 
 void * threadDiff(void* arg)
 {
-    int (*nums)[2] = (int (*)[2])arg;
-    printf("Difference: %d\n",(*nums[0]) - (*nums[1]));
+    int * nums = (int *) arg;
+    printf("Difference: %d\n",(nums[0]) - (nums[1]));
     return NULL;
 }
 
 void * threadProd(void* arg)
 {
-    int (*nums)[2] = (int (*)[2])arg;
-    printf("Product: %d\n",(*nums[0]) * (*nums[1]));
+    int * nums = (int *) arg;
+    printf("Product: %d\n",(nums[0]) * (nums[1]));
     return NULL;
 }
 
 void * threadDiv(void* arg)
 {
-    int (*nums)[2] = (int (*)[2])arg;
-    printf("Ratio: %d\n",(*nums[0]) / (*nums[1]));
+    int * nums = (int *) arg;
+    printf("Ratio: %d\n",(nums[0]) / (nums[1]));
     return NULL;
 }
 
