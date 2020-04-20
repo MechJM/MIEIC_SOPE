@@ -62,8 +62,6 @@ int main(int argc, char* argv[])
             exit(1);
         }
 
-
-
         if (S_ISREG(stat_buf.st_mode))
         {
             sprintf(args_arr[i].sourceFile,"%s/%s",argv[1],dentry->d_name);
