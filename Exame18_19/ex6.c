@@ -21,21 +21,30 @@ int process_dir(char *dirname)
     while((entry=readdir(dir))!=NULL)
     {
         char path[1024];
-        // ‐‐‐ BLOCOA ‐‐‐
+        // ‐‐‐ BLOCO A ‐‐‐
         ...
         if(...)
         {
-            //se'entry'forumdiretório
-            if(strcmp(entry‐>d_name,".")==0||strcmp(entry‐>d_name,"..")==0)continue;...
-            //criaumprocessoqueinvocaprocess_dir()
-        }// ‐‐‐ FIMDOBLOCOA ‐‐‐// ‐‐‐ BLOCOB ‐‐‐
+            //se 'entry' for um diretório
+            if(strcmp(entry‐>d_name,".") == 0 || strcmp(entry‐>d_name,"..") == 0) continue; // se esta linha não existisse o processo ia continuar a procurar no próprio
+                                                                                      // diretório e em todos os "diretórios-pai" até chegar à raíz do sistema
+            pid_t pid = fork();
+            if (pid < 0) 
+            {
+                fprintf(stderr,"Couldn't create process.\n");
+                exit(1);
+            }
+            else if (pid == 0) process_dir(entry->d_name);
+            //cria um processo que invoca process_dir()
+        }// ‐‐‐ FIM DO BLOCOA ‐‐‐
+        // ‐‐‐ BLOCO B ‐‐‐
         else if(...)
-        {//se'entry'forumficheiroregular
+        {//se 'entry' for um ficheiro regular
         ...
             if(strstr(entry‐>d_name,filename)!=NULL)
-            {//seonomedoficheirocontiverfilename...//criaumprocessoqueinvocaoutilitário'cp'
+            {//se o nome do ficheiro contiver filename...//cria um processo que invoca o utilitário 'cp'
             }
-        }// ‐‐‐ FIMDOBLOCOB ‐‐‐
+        }// ‐‐‐ FIM DO BLOCO B ‐‐‐
     }
     return 0;
 }
