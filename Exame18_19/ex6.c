@@ -43,6 +43,7 @@ int process_dir(char *dirname)
         ...
             if(strstr(entry‐>d_name,filename)!=NULL)
             {//se o nome do ficheiro contiver filename...//cria um processo que invoca o utilitário 'cp'
+                execlp("cp","cp",entry->d_name,destination_dir,NULL);
             }
         }// ‐‐‐ FIM DO BLOCO B ‐‐‐
     }
