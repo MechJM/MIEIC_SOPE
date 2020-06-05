@@ -22,11 +22,10 @@ int process_dir(char *dirname)
     {
         char path[1024];
         // ‐‐‐ BLOCO A ‐‐‐
-        ...
-        if(...)
+        if(S_ISDIR(statbuf.st_mode))
         {
             //se 'entry' for um diretório
-            if(strcmp(entry‐>d_name,".") == 0 || strcmp(entry‐>d_name,"..") == 0) continue; // se esta linha não existisse o processo ia continuar a procurar no próprio
+            if(strcmp(entry->d_name,".") == 0 || strcmp(entry->d_name,"..") == 0) continue; // se esta linha não existisse o processo ia continuar a procurar no próprio
                                                                                       // diretório e em todos os "diretórios-pai" até chegar à raíz do sistema
             pid_t pid = fork();
             if (pid < 0) 
@@ -38,10 +37,9 @@ int process_dir(char *dirname)
             //cria um processo que invoca process_dir()
         }// ‐‐‐ FIM DO BLOCOA ‐‐‐
         // ‐‐‐ BLOCO B ‐‐‐
-        else if(...)
+        else if(S_ISREG(statbuf.st_mode))
         {//se 'entry' for um ficheiro regular
-        ...
-            if(strstr(entry‐>d_name,filename)!=NULL)
+            if(strstr(entry->d_name,filename)!=NULL)
             {//se o nome do ficheiro contiver filename...//cria um processo que invoca o utilitário 'cp'
                 execlp("cp","cp",entry->d_name,destination_dir,NULL);
             }
@@ -62,11 +60,11 @@ int main (int argc, char* argv[])
     strcpy(filename,argv[2]);
 
     struct sigaction action;
-    action.sa_handler = SIG_IGN
+    action.sa_handler = SIG_IGN;
     sigemptyset(&action.sa_mask);
     action.sa_flags = 0;
 
-    if (sigaction(SIG_INT,&action,NULL) < 0)
+    if (sigaction(SIGINT,&action,NULL) < 0)
     {
         fprintf(stderr, "Couldn't install signal handler.\n");
         exit(1);
