@@ -21,6 +21,8 @@ int process_dir(char *dirname)
     while((entry=readdir(dir))!=NULL)
     {
         char path[1024];
+        sprintf(path,"%s/%s",dirname,entry->d_name);
+        stat(path,&statbuf);
         // ‐‐‐ BLOCO A ‐‐‐
         if(S_ISDIR(statbuf.st_mode))
         {
@@ -33,7 +35,7 @@ int process_dir(char *dirname)
                 fprintf(stderr,"Couldn't create process.\n");
                 exit(1);
             }
-            else if (pid == 0) process_dir(entry->d_name);
+            else if (pid == 0) process_dir(path);
             //cria um processo que invoca process_dir()
         }// ‐‐‐ FIM DO BLOCOA ‐‐‐
         // ‐‐‐ BLOCO B ‐‐‐
@@ -41,7 +43,7 @@ int process_dir(char *dirname)
         {//se 'entry' for um ficheiro regular
             if(strstr(entry->d_name,filename)!=NULL)
             {//se o nome do ficheiro contiver filename...//cria um processo que invoca o utilitário 'cp'
-                execlp("cp","cp",entry->d_name,destination_dir,NULL);
+                execlp("cp","cp",path,destination_dir,NULL);
             }
         }// ‐‐‐ FIM DO BLOCO B ‐‐‐
     }
