@@ -1,6 +1,5 @@
 ## Ex.7 
 ### b)
-Diagram:
 ![](ex7b.svg)
 ### c)
 ## Ex.8
