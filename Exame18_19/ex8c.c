@@ -10,18 +10,18 @@ int food_bits = 0;
 int finish = 0;
 
 sem_t full,empty;
+pthread_mutex_t foodMut = PTHREAD_MUTEX_INITIALIZER;
 
 void *bird(void *arg)
 {
     while (finish == 0)
     {
-
-        if (food_bits == 0)
-        {
-            get_food();
-            food_bits = F;
-        }
-        
+        get_food();
+        sem_wait(&empty);
+        pthread_mutex_lock(&foodMut);
+        food_bits = F;
+        pthread_mutex_unlock(&foodMut);
+        sem_post(&full);
     }
     return NULL;
 }
@@ -33,15 +33,16 @@ void *baby(void *arg)
     
     while (finish == 0)
     {
+        sem_wait(&full);
+        pthread_mutex_lock(&foodMut);
+        food_bits--;
         if (food_bits == 0)
         {
+            sem_post(&empty);
             fprintf(stderr,"I am baby %d, I have already eaten %d bits of food and I am still hungry!",id , n_bits);
         }
-        else 
-        {
-            n_bits++;
-            food_bits--;
-        }
+        pthread_mutex_unlock(&foodMut);
+        n_bits++;
     }
     return NULL;
 }
@@ -64,4 +65,6 @@ int main(void)
 
     sem_destroy(&empty);
     sem_destroy(&full);
+    pthread_mutex_destroy(&foodMut);
+    return 0;
 }
