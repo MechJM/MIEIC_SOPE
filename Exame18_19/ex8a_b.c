@@ -52,4 +52,5 @@ int main(void)
         ids[i] = i;
         pthread_create(&tid_baby[i],NULL,baby,&ids[i]);
     }
+    return 0;
 }
