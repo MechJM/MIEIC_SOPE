@@ -8,43 +8,57 @@ void *thread1(void *arg)
 {
     arg=arg;
 
+    /*
     sem_post(&a);
     sem_wait(&b);
     sem_wait(&c);
     sem_post(&b);
     sem_post(&c);
-    printf("Hi from thread 1\n");
-
+    */
+    sem_post(&a);
+    sem_wait(&c);
+    sem_post(&a);
+    sem_wait(&c);
     
+
+    printf("Hi from thread 1\n");
     return NULL;
 }
 
 void *thread2(void *arg)
 {
     arg=arg;
-
+    /*
     sem_post(&b);
     sem_wait(&a);
     sem_wait(&c);
     sem_post(&a);
     sem_post(&c);
-    printf("Hi from thread 2\n");
+*/
+    sem_post(&b);
+    sem_wait(&a);
+    sem_post(&b);
+    sem_wait(&a);
 
-    
+    printf("Hi from thread 2\n");
     return NULL;
 }
 
 void *thread3(void *arg)
 {
     arg=arg;
-
+    /*
     sem_post(&c);
     sem_wait(&a);
     sem_wait(&b);
     sem_post(&b);
     sem_post(&a);
+*/
+    sem_post(&c);
+    sem_wait(&b);
+    sem_post(&c);
+    sem_wait(&b);
     printf("Hi from thread 3\n");
-    
     return NULL;    
 }
 
