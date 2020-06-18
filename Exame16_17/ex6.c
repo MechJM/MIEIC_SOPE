@@ -28,11 +28,13 @@ int main(int argc, char* argv[])
     sigemptyset(&action.sa_mask);
     action.sa_flags = 0;
     action.sa_handler = sigusr1_handler;
+    sigaction(SIGUSR1,&action,NULL);
 
     struct sigaction action2;
     sigemptyset(&action2.sa_mask);
     action2.sa_flags = 0;
     action2.sa_handler = sigusr2_handler;
+    sigaction(SIGUSR2,&action,NULL);
     */
     for (int i = 1; i <= numbits; i++ )
     {
